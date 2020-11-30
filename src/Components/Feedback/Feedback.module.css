@@ -1,0 +1,50 @@
+.title {
+  margin: 0;
+  margin-bottom: 15px;
+
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.btn {
+  padding: 5px 7px;
+
+  min-width: 100px;
+
+  font-family: Roboto, sans-serif;
+
+  color: white;
+  background-color: grey;
+
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+.btn:not(:last-child) {
+  margin-right: 10px;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: orange;
+  color: black;
+}
+
+.feedbackBtns {
+  margin-bottom: 15px;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+
+  font-family: Roboto, sans-serif;
+
+  list-style: none;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 5px;
+}
