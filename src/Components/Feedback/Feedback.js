@@ -5,27 +5,41 @@ import Controls from "./Controls";
 
 class Feedback extends Component {
   state = {
-    good: 7,
+    good: 10,
     neutral: 2,
     bad: 3,
   };
 
+  countTotalFeedback = () => {
+    return this.state.good + this.state.neutral + this.state.bad;
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    return +((this.state.good / this.countTotalFeedback()) * 100).toFixed(0);
+  };
+
+  handleFeedback = (e) => {
+    const feedbackType = e.target.dataset.action;
+    this.setState((prevState) => ({
+      [feedbackType]: prevState[feedbackType] + 1,
+    }));
+    e.target.blur();
+  };
+
   render() {
     const { good, neutral, bad } = this.state;
-    const total = good + neutral + bad;
-    const percent = ((good / total) * 100).toFixed(0);
 
     return (
       <Fragment>
         <p className={styles.title}>Please leave feedback</p>
-        <Controls />
+        <Controls onClick={this.handleFeedback} />
         <p className={styles.title}>Statistics</p>
         <Statistics
           good={good}
           neutral={neutral}
           bad={bad}
-          total={total}
-          percent={percent}
+          total={this.countTotalFeedback()}
+          percent={this.countPositiveFeedbackPercentage()}
         />
       </Fragment>
     );
