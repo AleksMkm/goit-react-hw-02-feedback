@@ -1,30 +1,32 @@
 import React, { Component, Fragment } from "react";
 import styles from "./Feedback.module.css";
+import Statistics from "./Statistics";
+import Controls from "./Controls";
 
 class Feedback extends Component {
   state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+    good: 7,
+    neutral: 2,
+    bad: 3,
   };
 
   render() {
+    const { good, neutral, bad } = this.state;
+    const total = good + neutral + bad;
+    const percent = ((good / total) * 100).toFixed(0);
+
     return (
       <Fragment>
         <p className={styles.title}>Please leave feedback</p>
-        <div className={styles.feedbackBtns}>
-          <button className={styles.btn}>Good</button>
-          <button className={styles.btn}>Neutral</button>
-          <button className={styles.btn}>Bad</button>
-        </div>
+        <Controls />
         <p className={styles.title}>Statistics</p>
-        <ul className={styles.list}>
-          <li className={styles.item}>Good:</li>
-          <li className={styles.item}>Neutral:</li>
-          <li className={styles.item}>Bad:</li>
-          <li className={styles.item}>Total:</li>
-          <li className={styles.item}>Positive feedback:</li>
-        </ul>
+        <Statistics
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          total={total}
+          percent={percent}
+        />
       </Fragment>
     );
   }
