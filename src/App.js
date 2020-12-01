@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import Container from "./Components/Container";
-import Section from "./Components/Section";
-import Controls from "./Components/Controls";
-import Statistics from "./Components/Statistics";
-import Notification from "./Components/Notification";
+import React, { Component } from 'react';
+import Container from './Components/Container';
+import Section from './Components/Section';
+import Controls from './Components/Controls';
+import Statistics from './Components/Statistics';
+import Notification from './Components/Notification';
 
 class App extends Component {
   state = {
@@ -13,28 +13,32 @@ class App extends Component {
   };
 
   countTotalFeedback = () => {
-    return this.state.good + this.state.neutral + this.state.bad;
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad;
   };
 
   countPositiveFeedbackPercentage = () => {
-    return +((this.state.good / this.countTotalFeedback()) * 100).toFixed(0);
+    const { good } = this.state;
+    const total = this.countTotalFeedback();
+    return total ? +((good / total) * 100).toFixed(0) : 0;
   };
 
-  handleFeedback = (e) => {
-    const feedbackType = e.target.dataset.action;
-    this.setState((prevState) => ({
+  handleFeedback = ({ target }) => {
+    const feedbackType = target.dataset.action;
+    this.setState(prevState => ({
       [feedbackType]: prevState[feedbackType] + 1,
     }));
-    e.target.blur();
+    target.blur();
   };
 
   render() {
     const { good, neutral, bad } = this.state;
+    const options = ['good', 'neutral', 'bad'];
 
     return (
       <Container>
         <Section title="Please leave feedback">
-          <Controls onClick={this.handleFeedback} />
+          <Controls options={options} clickHandler={this.handleFeedback} />
         </Section>
         <Section title="Statistics">
           {this.countTotalFeedback() !== 0 ? (

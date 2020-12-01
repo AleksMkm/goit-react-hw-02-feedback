@@ -1,22 +1,27 @@
-import React, { Fragment } from "react";
-import styles from "./Controls.module.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './Controls.module.css';
 
-function Controls({ onClick }) {
+const btn = ({ feedbackType, clickHandler }) => {
   return (
-    <Fragment>
-      <div className={styles.feedbackBtns}>
-        <button className={styles.btn} data-action="good" onClick={onClick}>
-          Good
-        </button>
-        <button className={styles.btn} data-action="neutral" onClick={onClick}>
-          Neutral
-        </button>
-        <button className={styles.btn} data-action="bad" onClick={onClick}>
-          Bad
-        </button>
-      </div>
-    </Fragment>
+    <button
+      className={styles.btn}
+      key={feedbackType}
+      data-action={feedbackType}
+      onClick={clickHandler}
+    >
+      {feedbackType}
+    </button>
   );
+};
+
+function Controls({ options, clickHandler }) {
+  return options.map(option => btn({ feedbackType: option, clickHandler }));
 }
 
 export default Controls;
+
+Controls.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  clickHandler: PropTypes.func.isRequired,
+};
